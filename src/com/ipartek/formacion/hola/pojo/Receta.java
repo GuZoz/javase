@@ -24,6 +24,16 @@ public class Receta {
 		this.descripcion = "desconocida";
 	}
 
+	public Receta(String titulo, Ingrediente[] ingredientes) {
+		super();
+		this.titulo = titulo;
+		this.ingredientes = ingredientes;
+		this.tiempo = 0;
+		this.dificultad = "desconocida";
+		this.comensales = 0;
+		this.descripcion = "desconocida";
+	}
+
 	// getter setter
 
 	public String getTitulo() {
@@ -84,17 +94,34 @@ public class Receta {
 
 	public boolean isGlutenFree() {
 		boolean glutenFree = true;
-		if (ingredientes == null) {
+		if (this.ingredientes == null) {
 			glutenFree = false;
 			System.out.println("Esta receta no tiene ingredientes!. No es posible comprobar el contenido de gluten");
 		} else {
-			for (int i = 0; i < ingredientes.length; i++) {
-				if (ingredientes[i].isGluten()) {
+			for (int i = 0; i < this.ingredientes.length; i++) { // for(ingrediente
+																	// i :
+																	// this.ingredientes)
+				if (this.ingredientes[i].isGluten()) {
 					glutenFree = false;
-					System.out.println("El ingrediente (" + ingredientes[i].getNombre() + ") contiene gluten");
+					System.out.println("El ingrediente (" + this.ingredientes[i].getNombre() + ") contiene gluten");
 				}
 			}
 		}
 		return glutenFree;
+	}
+
+	public void addIngrediente(Ingrediente ingrediente) {
+
+	}
+
+	/**
+	 * Eliminar el primer ingrediente que encuentre con el mismo
+	 * <code>nombre</code> CaseInsensitive
+	 * 
+	 * @param ingrediente
+	 *            a eliminar @ return
+	 */
+	public void removeIngrediente(Ingrediente ingrediente) {
+
 	}
 }

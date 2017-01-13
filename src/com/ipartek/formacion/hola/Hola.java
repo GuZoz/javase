@@ -1,6 +1,6 @@
 package com.ipartek.formacion.hola;
 
-import com.ipartek.formacion.hola.pojo.Libro;
+import com.ipartek.formacion.hola.pojo.LibroNoEncapsulado;
 
 /**
  * 
@@ -24,12 +24,12 @@ public class Hola {
 		// instanciar un objeto de la clase libro, sin olvidar importar la clase
 		// o package
 
-		Libro libroJava = new Libro();
+		LibroNoEncapsulado libroJava = new LibroNoEncapsulado();
 		libroJava.numeroPaginas = 320;
 		libroJava.nombre = "Java 7";
 		System.out.println(libroJava.describete());
 
-		Libro libroMySQL = new Libro();
+		LibroNoEncapsulado libroMySQL = new LibroNoEncapsulado();
 		libroMySQL.numeroPaginas = 725;
 		libroMySQL.nombre = "MySQL";
 		libroMySQL.autor = "Anonimo";

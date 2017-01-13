@@ -1,4 +1,7 @@
-package com.ipartek.formacion.hola.pojo;
+package com.ipartek.formacion.hola.ejercicios;
+
+import com.ipartek.formacion.hola.pojo.Ingrediente;
+import com.ipartek.formacion.hola.pojo.Receta;
 
 public class RecetaKArguinano {
 
