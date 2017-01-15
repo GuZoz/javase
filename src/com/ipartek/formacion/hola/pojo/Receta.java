@@ -1,16 +1,17 @@
 package com.ipartek.formacion.hola.pojo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Receta {
 
 	// atributos y constantes
-	String titulo;
-	Ingrediente[] ingredientes;
-	int tiempo;
-	String dificultad;
-	int comensales;
-	String descripcion;
+	private String titulo;
+	private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+	private int tiempo;
+	private String dificultad;
+	private int comensales;
+	private String descripcion;
 
 	// constructores
 
@@ -24,7 +25,7 @@ public class Receta {
 		this.descripcion = "desconocida";
 	}
 
-	public Receta(String titulo, Ingrediente[] ingredientes) {
+	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
 		super();
 		this.titulo = titulo;
 		this.ingredientes = ingredientes;
@@ -44,11 +45,11 @@ public class Receta {
 		this.titulo = titulo;
 	}
 
-	public Ingrediente[] getIngredientes() {
+	public ArrayList<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Ingrediente[] ingredientes) {
+	public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 
@@ -88,7 +89,7 @@ public class Receta {
 
 	@Override
 	public String toString() {
-		return "Receta [titulo=" + titulo + ", ingredientes=" + Arrays.toString(ingredientes) + ", tiempo=" + tiempo
+		return "Receta [titulo=" + titulo + ", ingredientes=" + Arrays.toString(ingredientes.toArray()) + ", tiempo=" + tiempo
 				+ ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion + "]";
 	}
 
@@ -98,12 +99,12 @@ public class Receta {
 			glutenFree = false;
 			System.out.println("Esta receta no tiene ingredientes!. No es posible comprobar el contenido de gluten");
 		} else {
-			for (int i = 0; i < this.ingredientes.length; i++) { // for(ingrediente
+			for (int i = 0; i < this.ingredientes.size(); i++) { // for(ingrediente
 																	// i :
 																	// this.ingredientes)
-				if (this.ingredientes[i].isGluten()) {
+				if (this.ingredientes.get(i).isGluten()) {
 					glutenFree = false;
-					System.out.println("El ingrediente (" + this.ingredientes[i].getNombre() + ") contiene gluten");
+					System.out.println("El ingrediente (" + this.ingredientes.get(i).getNombre() + ") contiene gluten");
 				}
 			}
 		}
@@ -111,7 +112,7 @@ public class Receta {
 	}
 
 	public void addIngrediente(Ingrediente ingrediente) {
-
+		ingredientes.add(ingrediente);
 	}
 
 	/**
@@ -122,6 +123,10 @@ public class Receta {
 	 *            a eliminar @ return
 	 */
 	public void removeIngrediente(Ingrediente ingrediente) {
-
+		for (int i = 0; i < ingredientes.size(); i++) {
+			if ((ingredientes.get(i).getNombre()).equals(ingrediente.getNombre())) {
+				ingredientes.remove(i);
+			}
+		}
 	}
 }

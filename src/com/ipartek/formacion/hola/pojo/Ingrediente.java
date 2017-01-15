@@ -3,9 +3,9 @@ package com.ipartek.formacion.hola.pojo;
 public class Ingrediente {
 	// atributos y constantes
 
-	float cantidad;
-	String nombre;
-	boolean gluten;
+	private float cantidad;
+	private String nombre;
+	private boolean gluten;
 
 	// constructores
 
