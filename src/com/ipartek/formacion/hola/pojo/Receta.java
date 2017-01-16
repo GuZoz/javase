@@ -18,7 +18,7 @@ public class Receta {
 	public Receta() {
 		super();
 		this.titulo = "desconocido";
-		this.ingredientes = null;
+		setIngredientes(null);
 		this.tiempo = 0;
 		this.dificultad = "desconocida";
 		this.comensales = 0;
@@ -28,7 +28,8 @@ public class Receta {
 	public Receta(String titulo, ArrayList<Ingrediente> ingredientes) {
 		super();
 		this.titulo = titulo;
-		this.ingredientes = ingredientes;
+		// this.ingredientes = ingredientes;
+		setIngredientes(ingredientes);
 		this.tiempo = 0;
 		this.dificultad = "desconocida";
 		this.comensales = 0;
@@ -50,7 +51,7 @@ public class Receta {
 	}
 
 	public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
-		this.ingredientes = ingredientes;
+		this.ingredientes = (ingredientes == null) ? new ArrayList<Ingrediente>() : ingredientes;
 	}
 
 	public int getTiempo() {
@@ -89,30 +90,34 @@ public class Receta {
 
 	@Override
 	public String toString() {
-		return "Receta [titulo=" + titulo + ", ingredientes=" + Arrays.toString(ingredientes.toArray()) + ", tiempo=" + tiempo
-				+ ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion + "]";
+		return "Receta [titulo=" + titulo + ", ingredientes=" + Arrays.toString(ingredientes.toArray()) + ", tiempo="
+				+ tiempo + ", dificultad=" + dificultad + ", comensales=" + comensales + ", descripcion=" + descripcion
+				+ "]";
 	}
 
 	public boolean isGlutenFree() {
-		boolean glutenFree = true;
-		if (this.ingredientes == null) {
-			glutenFree = false;
-			System.out.println("Esta receta no tiene ingredientes!. No es posible comprobar el contenido de gluten");
-		} else {
-			for (int i = 0; i < this.ingredientes.size(); i++) { // for(ingrediente
-																	// i :
-																	// this.ingredientes)
-				if (this.ingredientes.get(i).isGluten()) {
-					glutenFree = false;
-					System.out.println("El ingrediente (" + this.ingredientes.get(i).getNombre() + ") contiene gluten");
+		boolean resul = true;
+		if (this.ingredientes != null) {
+			for (Ingrediente i : this.ingredientes) {
+				if (i.isGluten()) {
+					resul = false;
+					break;
 				}
 			}
 		}
-		return glutenFree;
+		return resul;
 	}
 
+	/**
+	 * TODO cuando sea null lanzar excepcion personalizadda <br>
+	 * 
+	 * @param ingrediente
+	 */
 	public void addIngrediente(Ingrediente ingrediente) {
-		ingredientes.add(ingrediente);
+		if (ingrediente != null) {
+			this.ingredientes.add(ingrediente);
+		}
+
 	}
 
 	/**
@@ -122,11 +127,47 @@ public class Receta {
 	 * @param ingrediente
 	 *            a eliminar @ return
 	 */
-	public void removeIngrediente(Ingrediente ingrediente) {
-		for (int i = 0; i < ingredientes.size(); i++) {
-			if ((ingredientes.get(i).getNombre()).equals(ingrediente.getNombre())) {
-				ingredientes.remove(i);
+	public boolean removeIngrediente(Ingrediente ingrediente) {
+		boolean resul = false;
+		if (ingrediente != null) {
+			final String NOMBRE_INGREDIENTE_ELIMINAR = ingrediente.getNombre();
+			Ingrediente iterateIngredient = null;
+			for (int i = 0; i < this.ingredientes.size(); i++) {
+				iterateIngredient = this.ingredientes.get(i);
+				if (NOMBRE_INGREDIENTE_ELIMINAR.equalsIgnoreCase(iterateIngredient.getNombre())) {
+					this.ingredientes.remove(i);
+					resul = true;
+					break;
+				}
 			}
 		}
+		return resul;
+	}
+
+	/**
+	 * Comprueba si contiene el ingrediente pasado como parametro
+	 * 
+	 * @param ingrediente
+	 * @return
+	 */
+	public boolean contiene(Ingrediente ingrediente) {
+		boolean resul = false;
+		if (ingrediente != null) {
+			final String NOMBRE_INGREDIENTE_BUSCAR = ingrediente.getNombre();
+			Ingrediente iterateIngredient = null;
+			for (int i = 0; i < this.ingredientes.size(); i++) {
+				iterateIngredient = this.ingredientes.get(i);
+				if (NOMBRE_INGREDIENTE_BUSCAR.equalsIgnoreCase(iterateIngredient.getNombre())) {
+					resul = true;
+					break;
+				}
+			}
+			// tb se podria con un foreach
+			// final String NOMBRE_INGREDIENTE_BUSCAR = ingrediente.getNombre();
+			// Ingrediente iterateIngredient = null;
+			// for (ingrediente iterateIngredient : ingredientes) {}
+
+		}
+		return resul;
 	}
 }
